@@ -25,36 +25,34 @@ export default function Login(props: Props) {
   };
 
   return (
-    <div className="flex justify-content-center align-items-center h-screen">
+    <div>
       <Toast ref={toast} />
-      <Card title="Login" subTitle="Please enter your email and password" className="p-shadow-4">
+      <Card title="Login" subTitle="Please enter your email and password" className="p-shadow-5">
         <form onSubmit={handleSubmit} className="p-fluid">
-          <div className="p-field">
-            <label htmlFor="email" className="p-d-block">
-              Email
-            </label>
+          <span className="p-float-label mb-4">
             <InputText
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.currentTarget.value)}
-              placeholder="Email"
               className={classNames("p-d-block", { "p-invalid": !email && password })}
             />
-          </div>
-          <div className="p-field mb-5">
-            <label htmlFor="password" className="p-d-block">
-              Password
+            <label htmlFor="email">
+              Email
             </label>
+          </span>
+          <span className="p-float-label mb-5">
             <Password
               id="password"
               value={password}
               onChange={(e) => setPassword(e.currentTarget.value)}
-              placeholder="Password"
               className={classNames("p-d-block", { "p-invalid": !password && email })}
               feedback={false}
             />
-          </div>
+            <label htmlFor="password">
+              Password
+            </label>
+          </span>
           <Button type="submit" label="Login" />
         </form>
       </Card>

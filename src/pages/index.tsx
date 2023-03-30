@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'                                           
 import Login from '@/components/Login'
-// Test
 
 const inter = Inter({ subsets: ['latin'] })
 

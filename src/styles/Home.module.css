@@ -5,5 +5,5 @@
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
-  background: hsl(239, 25%, 30%);
+  background: var(--gray-10);
 }

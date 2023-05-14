@@ -19,7 +19,9 @@ export default function Login(props: Props) {
 
   const attemptLogin = async () => { 
     try {
-      await axios.post(`${baseUrl}/login`, { username, password })
+      await axios.post(`${baseUrl}/login`, { username, password }, {
+        withCredentials: true
+      })
     } catch(err) {
       toast.current?.show(
         {

@@ -25,3 +25,13 @@ a {
   --gray-30: #B0BEC5;
   --gray-40: #78909C;
 }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.content-card .p-card-content {
+  padding: 0;
+}

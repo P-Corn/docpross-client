@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router';
+import NavBar from '@/components/NavBar'
+import ContentWrapper from '@/components/ContentWrapper/ContentWrapper';
 
 export default function Dashboard() {
   const [loading, setLoading] = useState<boolean>(true)
@@ -8,7 +10,7 @@ export default function Dashboard() {
 
   const logout = async () => {
     try {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login/logout`)
+      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`, { withCredentials: true })
     } catch(err) {
       console.log(err)
     }
@@ -17,7 +19,8 @@ export default function Dashboard() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/loggedin`)
+        await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/loggedin`, { withCredentials: true })
+        setLoading(false)
       } catch(err) {
         await router.push('/')
         setLoading(false)
@@ -25,7 +28,6 @@ export default function Dashboard() {
     }
 
     checkAuth()
-    setLoading(false)
   }, [])
 
   return (
@@ -35,8 +37,10 @@ export default function Dashboard() {
           <div>Loading...</div>
         :
           <div>
-            <h1>Dashboard</h1>
-            <button onClick={logout}>Logout</button>
+            <NavBar />
+            <div className="container">
+              <ContentWrapper title="Folders" items={[{ name: 'test' }, { name: 'pizaa' }]} />
+            </div>
           </div>
       }
     </>

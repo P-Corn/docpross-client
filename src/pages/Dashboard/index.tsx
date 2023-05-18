@@ -2,19 +2,29 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router';
 import NavBar from '@/components/NavBar'
+import {Card} from 'primereact/card'
 import ContentWrapper from '@/components/ContentWrapper/ContentWrapper';
+
+interface Item {
+  name: string;
+}
+
+interface FolderItemProps {
+  item: Item;
+  index: number ;
+}
+
+const FolderItem: React.FC<FolderItemProps> = ({ item, index }) => (
+  <div className="col-4">
+    <Card className="content-card bg-primary-100" key={index}>
+      {item.name}
+    </Card>
+  </div>
+)
 
 export default function Dashboard() {
   const [loading, setLoading] = useState<boolean>(true)
   const router = useRouter()
-
-  const logout = async () => {
-    try {
-      await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/logout`, { withCredentials: true })
-    } catch(err) {
-      console.log(err)
-    }
-  }
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -39,7 +49,8 @@ export default function Dashboard() {
           <div>
             <NavBar />
             <div className="container">
-              <ContentWrapper title="Folders" items={[{ name: 'test' }, { name: 'pizaa' }]} />
+              <ContentWrapper title="Folders" component={FolderItem} items={[{ name: 'test' }, { name: 'pizaa' }]} />
+              <ContentWrapper title="Files" component={FolderItem} items={[{ name: 'test' }, { name: 'pizaa' }]} />
             </div>
           </div>
       }

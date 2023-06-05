@@ -1,20 +1,38 @@
-import React, { useState } from "react";
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
+import React, { useEffect, useRef } from 'react';
 
-interface ModalProps {
-  visible: boolean;
-  setVisible: (visible: boolean) => void;
-  children: React.ReactNode;
-}
+const FileUpload: React.FC = () => {
+  const [file, setFile] = React.useState<File | null>(null);
 
-export default function Modal({ visible, setVisible, children }: ModalProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    fileInputRef.current?.click()
+  }, []);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      setFile(files[0]);
+    }
+  };
 
   return (
-    <div className="card flex justify-content-center">
-      <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-        {children}
-    </Dialog>
+    <div>
+      <input 
+        type="file" 
+        style={{ display: 'none' }} 
+        ref={fileInputRef} 
+        onChange={handleFileChange}
+      />
+      {file && (
+        <div>
+          <p>File Name: {file.name}</p>
+          <p>File Size: {file.size}</p>
+          <p>File Type: {file.type}</p>
+        </div>
+      )}
     </div>
-  )
+  );
 }
+
+export default FileUpload;

@@ -6,15 +6,16 @@ interface ModalProps {
   visible: boolean;
   setVisible: (visible: boolean) => void;
   children: React.ReactNode;
+  header: string;
+  styles: object;
 }
 
-export default function Modal({ visible, setVisible, children }: ModalProps) {
-
+export default function Modal({ visible, setVisible, children, header, styles }: ModalProps) {
   return (
     <div className="card flex justify-content-center">
-      <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+      <Dialog header={header} visible={visible} style={styles} onHide={() => setVisible(false)}>
         {children}
-    </Dialog>
+      </Dialog>
     </div>
   )
 }

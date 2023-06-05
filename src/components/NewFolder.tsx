@@ -1,20 +1,25 @@
 import React, { useState } from "react";
 import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
+import { InputText } from 'primereact/inputtext';
+import { useModal } from '@/contexts/ModalContext';
 
-interface ModalProps {
-  visible: boolean;
-  setVisible: (visible: boolean) => void;
-  children: React.ReactNode;
-}
+export default function NewFolder() {
+  const { closeModal } = useModal();
+  const [folderName, setFolderName] = useState<string>('Untitled Folder')
 
-export default function Modal({ visible, setVisible, children }: ModalProps) {
+  const createFolder = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    console.log(folderName)
+    closeModal()
+  }
 
   return (
-    <div className="card flex justify-content-center">
-      <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-        {children}
-    </Dialog>
-    </div>
+    <form onSubmit={createFolder} className="mt-1">
+      <InputText className="w-full mb-3" id="folderName" value={folderName} onChange={(e) => setFolderName(e.target.value)} />
+      <div className="flex justify-content-end">
+        <Button text formAction="submit" className="mt-1" label="Create" />
+      </div>
+    </form>
   )
 }
